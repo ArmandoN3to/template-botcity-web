@@ -29,7 +29,7 @@ class Bot(WebBot):
             self.browse(url)
         except Exception as ex:
 
-            print('Error starting browser')
+            print('Error starting browser test')
             self.save_screenshot('error.png')
 
 
@@ -51,7 +51,7 @@ class Bot(WebBot):
         except Exception as ex:
             print(ex)
             self.save_screenshot('error.png')
-
+            
         finally:
             # Wait 3 seconds before closing
             self.wait(3000)
