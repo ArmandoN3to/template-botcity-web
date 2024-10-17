@@ -6,10 +6,8 @@ Please make sure you install the bot dependencies with `pip install --upgrade -r
 """
 
 
-# Import for the Web Bot
 from botcity.web import WebBot, Browser, By
 
-# Import for integration with BotCity Maestro SDK
 from botcity.maestro import *
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -20,6 +18,20 @@ BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
 class Bot(WebBot):
     
+    def bot_configuration(self)->None:
+        # Configure whether or not to run on headless mode
+        self.headless = False
+        self.browser = Browser.CHROME
+        self.driver_path = ChromeDriverManager().install()
+
+    def start_browser_bot(self,url= "https://www.botcity.dev"):
+        try:
+            self.browse(url)
+        except Exception as ex:
+
+            print('Error starting browser')
+            self.save_screenshot('error.png')
+
 
     def action(self,execution = None):
         # Runner passes the server url, the id of the task being executed,
@@ -31,23 +43,14 @@ class Bot(WebBot):
         print(f"Task ID is: {execution.task_id}")
         print(f"Task Parameters are: {execution.parameters}")
 
-        
-
-        # Configure whether or not to run on headless mode
-        self.headless = False
-
-        self.browser = Browser.CHROME
-        self.driver_path = ChromeDriverManager().install()
-
-        self.browse("https://www.botcity.dev")
-
         # Implement here your logic...
         try:
-            pass
+            self.bot_configuration()
+            self.start_browser_bot()         #inserir Url ou por padrao vai para o site da BOTCITY
 
-        except Exception as e:
-            print(e)
-            self.save_screenshot('erro.png')
+        except Exception as ex:
+            print(ex)
+            self.save_screenshot('error.png')
 
         finally:
             # Wait 3 seconds before closing
