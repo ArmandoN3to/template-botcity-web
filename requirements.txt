@@ -1,0 +1,5 @@
+botcity-email-plugin==0.1.5
+botcity-framework-base==0.4.4
+botcity-framework-web==0.9.0
+botcity-http-plugin==0.1.4
+botcity-maestro-sdk==0.5.1
